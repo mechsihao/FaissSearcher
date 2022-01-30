@@ -1,2 +1,27 @@
 # FaissSearcher
-a common faiss searcher 
+a common faiss searcher based on pandas DataFrame
+
+基于pandas DataFrame 检索的Faiss封装
+## 特点
+简单易上手
+
+## 需要准备
+  - 1.encoder，一般来说是自己定义的，里面必须有`encode`方法，建议直接继承BaseEncoder。
+  - 2.items。必须是pandas DataFrame格式，要求只需要第一列为目标item列，其余列随意，检索时会自动带入到结果中。
+  - 3.index_param，faiss的构建参数，代表构建什么类型的索引，这个需要你对Faiss的传参模式了解下，可以看下我写的这片文章的第3节：https://zhuanlan.zhihu.com/p/357414033
+  - 4.measurement，度量方法，最常用的是cos余弦相似度，l2欧氏距离，还支持1范数、无穷范数、p范数等等
+  - 5.is_nrom，是否需要对象量归一化，根据自己的度量方法或者工程场景来使用，cos默认为True。
+
+## 示例
+```python
+index_param = 'HNSW64'
+measurement = 'cos'
+searcher = FaissSearcher(encoder, items, index_param, measurement)
+# 构建index
+searcher.train()
+# 保存index，方便下次调用
+searcher.save_index('demo.index')
+# 搜索，以文本为例
+target = ['你好我叫小鲨鱼', '你好我是小兔子'， 很高兴认识你]
+df_res = searcher.search(target， topK=10)  # df_res即为结果
+```
