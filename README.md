@@ -22,6 +22,6 @@ searcher.train()
 # 保存index，方便下次调用
 searcher.save_index('demo.index')
 # 搜索，以文本为例
-target = ['你好我叫小鲨鱼', '你好我是小兔子'， 很高兴认识你]
+target = ['你好我叫小鲨鱼', '你好我是小兔子', '很高兴认识你']
 df_res = searcher.search(target， topK=10)  # df_res即为结果
 ```
