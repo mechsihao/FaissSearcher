@@ -8,7 +8,7 @@ import logging
 
 from pandas import DataFrame
 from numpy import array
-from backend.base_encoder import BaseEncoder
+from base_encoder import BaseEncoder
 
 logger = logging.getLogger("FAISS")
 
