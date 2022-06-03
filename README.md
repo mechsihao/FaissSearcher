@@ -1,5 +1,5 @@
 # FaissSearcher
-a common faiss searcher based on pandas DataFrame
+A common faiss searcher based on pandas DataFrame
 
 ![](https://img.shields.io/badge/知乎-MECH-blue)
 ![](https://img.shields.io/static/v1?label=tensorflow&message=2.3.2&color=orange)
