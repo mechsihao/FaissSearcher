@@ -10,7 +10,7 @@ A common faiss searcher based on pandas DataFrame
 
 基于pandas DataFrame 检索的Faiss封装，pandas尽量使用1.3.5，如不能保证精确版本，也要保证在1.0以上。
 ## 特点
-简单易上手
+简单易上手，只要是能encode成向量的都可以，不局限于文本、图像、搜广推等场景。
 
 ## 需要准备
   - 1.encoder，一般来说是自己定义的，里面必须有`encode`方法，代表将文本或者图片encode成向量，用来检索，建议直接继承BaseEncoder，如果原始数据本来就是向量，而不是图片、文本这种需要encode的数据集，也很好办，将`encode`方法中输入向量原封不动的输出即可。可以参考自带的bert_encoder，用起来很方便，事先需要下载tf版本的bert预训练权重。
@@ -23,8 +23,11 @@ A common faiss searcher based on pandas DataFrame
 ## 示例
 ```python
 encoder = BertEncoder(config_path, checkpoint_path, dict_path)  # 预训练权重自己得准备好
+items = pd.read_csv(item_path)  # 候选文本集合csv文件，需要自备，需要df第一列是候选文本，其他列会在检索时自动带出。
 index_param = 'HNSW64'
 measurement = 'cos'
+
+# 接下来就开始
 searcher = FaissSearcher(encoder, items, index_param, measurement)
 # 构建index
 searcher.train()
