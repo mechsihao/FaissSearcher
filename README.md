@@ -22,7 +22,7 @@ A common faiss searcher based on pandas DataFrame
 
 ## 示例
 ```python
-encoder = BertEncoder(config_path, checkpoint_path, dict_path)  # 预训练权重自己得准备好
+encoder = BertEncoder(config_path, checkpoint_path, dict_path)  # 预训练权重自己得准备好，也可以是自己写的encoder，必须有encode方法，建议直接继承base_encoder类来写
 items = pd.read_csv(item_path)  # 候选文本集合csv文件，需要自备，需要df第一列是候选文本，其他列会在检索时自动带出。
 index_param = 'HNSW64'
 measurement = 'cos'
