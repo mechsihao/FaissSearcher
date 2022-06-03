@@ -8,7 +8,7 @@ a common faiss searcher based on pandas DataFrame
 ![](https://img.shields.io/static/v1?label=bert4keras&message=1.3.5&color=silver)
 
 
-基于pandas DataFrame 检索的Faiss封装
+基于pandas DataFrame 检索的Faiss封装，pandas尽量使用1.3.5，如不能保证精确版本，也要保证在1.0以上。
 ## 特点
 简单易上手
 
