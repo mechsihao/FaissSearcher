@@ -1,7 +1,8 @@
 # FaissSearcher
 a common faiss searcher based on pandas DataFrame
-<a href="https://github.com/allegroai/clearml"><img src="https://camo.githubusercontent.com/f60861e75a851f69a1fb8a5c671ef233147b7781a13dae226dcc2c32166654c0/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f636c6561726d6c2e737667
-"></a>
+
+![](https://img.shields.io/badge/%E7%9F%A5%E4%B9%8E-MECH-blue)
+
 
 基于pandas DataFrame 检索的Faiss封装
 ## 特点
