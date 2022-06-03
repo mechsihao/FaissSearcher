@@ -22,7 +22,7 @@ A common faiss searcher based on pandas DataFrame
 
 ## 示例
 ```python
-encoder = BertEncoder()
+encoder = BertEncoder(config_path, checkpoint_path, dict_path)  # 预训练权重自己得准备好
 index_param = 'HNSW64'
 measurement = 'cos'
 searcher = FaissSearcher(encoder, items, index_param, measurement)
