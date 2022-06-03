@@ -1,5 +1,7 @@
 # FaissSearcher
 a common faiss searcher based on pandas DataFrame
+<a href="https://github.com/allegroai/clearml"><img src="https://camo.githubusercontent.com/f60861e75a851f69a1fb8a5c671ef233147b7781a13dae226dcc2c32166654c0/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f636c6561726d6c2e737667
+"></a>
 
 基于pandas DataFrame 检索的Faiss封装
 ## 特点
@@ -7,10 +9,11 @@ a common faiss searcher based on pandas DataFrame
 
 ## 需要准备
   - 1.encoder，一般来说是自己定义的，里面必须有`encode`方法，代表将文本或者图片encode成向量，用来检索，建议直接继承BaseEncoder，如果原始数据本来就是向量，而不是图片、文本这种需要encode的数据集，也很好办，将`encode`方法中输入向量原封不动的输出即可。
-  - 2.items。必须是pandas DataFrame格式，要求只需要第一列为目标item列，其余列随意，检索时会自动带入到结果中。
-  - 3.index_param，faiss的构建参数，代表构建什么类型的索引，这个需要你对Faiss的传参模式了解下，可以看下我写的这片文章的第3节：https://zhuanlan.zhihu.com/p/357414033
-  - 4.measurement，度量方法，最常用的是cos余弦相似度，l2欧氏距离，还支持1范数、无穷范数、p范数等等
-  - 5.is_nrom，是否需要对象量归一化，根据自己的度量方法或者工程场景来使用，cos默认为True。
+  - 2.
+  - 3.items。必须是pandas DataFrame格式，要求只需要第一列为目标item列，其余列随意，检索时会自动带入到结果中。
+  - 4.index_param，faiss的构建参数，代表构建什么类型的索引，这个需要你对Faiss的传参模式了解下，可以看下我写的这片文章的第3节：https://zhuanlan.zhihu.com/p/357414033
+  - 5.measurement，度量方法，最常用的是cos余弦相似度，l2欧氏距离，还支持1范数、无穷范数、p范数等等
+  - 6.is_nrom，是否需要对象量归一化，根据自己的度量方法或者工程场景来使用，cos默认为True。
 
 ## 示例
 ```python
