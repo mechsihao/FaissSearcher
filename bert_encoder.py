@@ -25,6 +25,22 @@ logger = logging.getLogger("ENCODER")
 
 
 class EncodeDataGenerator(DataGenerator):
+    """
+    数据生成器，将文本数据 灌入的时候 构造为如下格式： 
+    原文本：
+    ['我是小鲨鱼', '小鲨鱼爱吃小兔子']
+    构造为:
+    [
+        [
+          [187, 3445, 6786, 23567, 85858, 0, 0, 0], 
+          [6786, 23567, 85858, 1123, 75763, 8574, 10293, 243]
+        ],
+        [
+          [1, 1, 1, 1, 1, 0, 0, 0], 
+          [1, 1, 1, 1, 1, 1, 1, 1]
+        ]
+    ]
+    """
     def __init__(self, data, dict_path, maxlen=32, batch_size=32, buffer_size=None):
         super(EncodeDataGenerator, self).__init__(data, batch_size=batch_size, buffer_size=buffer_size)
         self.maxlen = maxlen
@@ -51,20 +67,25 @@ class EncodeDataGenerator(DataGenerator):
 
 class BertEncoder(BaseEncoder):
     """
-    利用bert encode数据
+    利用bert encode文本数据
     """
 
-    def __init__(self, config_path: str, checkpoint_path: str, dict_path: str, maxlen: int = 16, batch_size: int = 32,
-                 is_whitening: bool = False, bert_out_index: int = 0, **kwargs):
+    def __init__(self, 
+                 config_path: str, 
+                 checkpoint_path: str, 
+                 dict_path: str, 
+                 maxlen: int = 16, 
+                 batch_size: int = 32,
+                 is_whitening: bool = False,
+                 **kwargs):
         self.config_path = config_path
         self.checkpoint_path = checkpoint_path
         self.dict_path = dict_path
         self.maxlen = maxlen
         self.batch_size = batch_size
-        self.is_whitening = is_whitening
-        self.whitening_dim = kwargs['whitening_dim'] if 'whitening_dim' in kwargs else 768
+        self.is_whitening = is_whitening  # 是否需要向量whitening，whitening技术详情可见：https://spaces.ac.cn/archives/8069
+        self.whitening_dim = kwargs['whitening_dim'] if 'whitening_dim' in kwargs else 768  # 不指定whitening_dim则默认不降维
         self.whitening_model = self.init_whitening_model(kwargs)
-        self.bert_out_index = bert_out_index
         self.encoder = self.__init_encoder__()
 
     def __init_encoder__(self):
@@ -72,7 +93,7 @@ class BertEncoder(BaseEncoder):
         segment_input = Input(shape=(None,))
         bert = build_transformer_model(self.config_path, self.checkpoint_path, maxlen=self.maxlen)
         x = bert([token_input, segment_input])
-        vecs = layers.Lambda(lambda tensor: tensor[:, self.bert_out_index])(x)
+        vecs = layers.Lambda(lambda tensor: tensor[:, 0])(x)
         encoder = Model(inputs=[token_input, segment_input], outputs=vecs)
         return encoder
 
@@ -107,8 +128,6 @@ class BertEncoder(BaseEncoder):
     @property
     def info(self):
         info = f'Max_len is [{self.maxlen}]\n' \
-               f'output_dim is [{self.whitening_dim}]\n' \
-               f'Bert model pool index is [{self.bert_out_index}]\n'\
+               f'Output_dim is [{self.whitening_dim}]\n' \
                f'Whitening vecs [{self.is_whitening}]\n'
         print(info)
-        return info
