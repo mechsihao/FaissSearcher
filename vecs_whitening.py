@@ -3,12 +3,15 @@ import numpy as np
 
 
 class VecsWhitening(object):
-    """向量whitening实现，用于调整向量基底，使其近似等于标准正交基，
-    并且还可以做到降维，一般来说可以提升句向量的表达效果
+    """
+    向量whitening实现，用于调整向量基底，使其近似等于标准正交基，
+    并且还可以做到降维，一般来说可以提升句向量的表达效果，
+    技术详情见：https://spaces.ac.cn/archives/8069
     """
 
     def __init__(self, n_components):
-        """和sklearn中的pca的用法一样
+        """
+        和sklearn中的pca的用法一样
         """
         self.n_components = n_components
         self.kernel = None
