@@ -5,7 +5,7 @@ A common faiss searcher based on pandas DataFrame
 ![](https://img.shields.io/static/v1?label=tensorflow&message=2.3.2&color=orange)
 ![](https://img.shields.io/static/v1?label=faiss-cpu&message=1.7.x&color=maroon)
 ![](https://img.shields.io/static/v1?label=pandas&message=1.3.5&color=yellow)
-![](https://img.shields.io/static/v1?label=bert4keras&message=1.3.5&color=silver)
+![](https://img.shields.io/static/v1?label=bert4keras&message=0.10.8&color=silver)
 
 
 基于pandas DataFrame 检索的Faiss封装，pandas尽量使用1.3.5，如不能保证精确版本，也要保证在1.0以上。
