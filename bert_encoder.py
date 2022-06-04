@@ -17,8 +17,8 @@ from bert4keras.models import build_transformer_model
 from bert4keras.tokenizers import Tokenizer
 from bert4keras.snippets import sequence_padding
 from bert4keras.snippets import DataGenerator
-from backend.base_encoder import BaseEncoder
-from backend.vecs_whitening import VecsWhitening
+from base_encoder import BaseEncoder
+from vecs_whitening import VecsWhitening
 
 
 logger = logging.getLogger("ENCODER")
