@@ -1,7 +1,7 @@
 # FaissSearcher
 A common faiss searcher based on pandas DataFrame
 
-![](https://img.shields.io/badge/知乎-MECH-blue)
+[![](https://img.shields.io/badge/知乎-MECH-blue)](https://www.zhihu.com/people/ha-ha-ha-67-42-64)
 ![](https://img.shields.io/static/v1?label=tensorflow&message=2.3.2&color=orange)
 ![](https://img.shields.io/static/v1?label=faiss-cpu&message=1.7.x&color=maroon)
 ![](https://img.shields.io/static/v1?label=pandas&message=1.3.5&color=yellow)
