@@ -11,7 +11,7 @@ A common faiss searcher based on pandas dataFrame
 基于pandas DataFrame 检索的Faiss封装，pandas尽量使用1.3.5，如不能保证精确版本，也要保证在1.0以上。
 ## 特点
 简单易上手，只要是能encode成向量的都可以，不局限于文本、图像、搜广推等场景。
-
+安装：`pip install faiss_searcher`
 ## 需要准备
   - 1.encoder，一般来说是自己定义的，里面必须有`encode`方法，代表将文本或者图片encode成向量，用来检索，建议直接继承BaseEncoder，如果原始数据本来就是向量，而不是图片、文本这种需要encode的数据集，也很好办，将`encode`方法中输入向量原封不动的输出即可。可以参考自带的bert_encoder，用起来很方便，事先需要下载tf版本的bert预训练权重。
   - 2.vecs_whitening，一种处理向量空间坍缩的有效方法，非必须，如果需要，可见本项目vecs_whitening.py代码，用法和sklearn的pca一致。可以将训练好的vecs_whitening模型地址输入bert_encoder中，也可以自己用本代码训练模型保存，再传入bert_encoder中。
