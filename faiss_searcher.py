@@ -12,9 +12,8 @@ import faiss
 
 from pandas import DataFrame
 from numpy import array
-from backend.base_encoder import BaseEncoder
-from backend.bert_encoder import BertEncoder
-from backend.encoder_utils import common_conf_path as dict_path
+from base_encoder import BaseEncoder
+from bert_encoder import BertEncoder
 import pickle
 
 
@@ -27,7 +26,7 @@ class FaissSearcher:
             self.encoder = encoder
         else:
             # 兼容通用encoder
-            self.encoder = BertEncoder(dict_path=dict_path, encoder=encoder)
+            self.encoder = BertEncoder(dict_path=kwargs['dict_path'], encoder=encoder)
         self.index_param = index_param
         self.items = items
         self.norm_vec = True if measurement == 'cos' else norm_vec
