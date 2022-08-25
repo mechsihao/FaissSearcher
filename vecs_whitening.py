@@ -1,3 +1,9 @@
+"""
+创建人：MECH
+创建时间：2022/02/01
+功能描述：向量白化操作，用于解决向量空间坍缩问题，可以向量提升相似度的准确性
+"""
+
 import pandas as pd
 import numpy as np
 
@@ -5,13 +11,11 @@ import numpy as np
 class VecsWhitening(object):
     """
     向量whitening实现，用于调整向量基底，使其近似等于标准正交基，
-    并且还可以做到降维，一般来说可以提升句向量的表达效果，
-    技术详情见：https://spaces.ac.cn/archives/8069
+    并且还可以做到降维，一般来说可以提升句向量的表达效果
     """
 
     def __init__(self, n_components):
-        """
-        和sklearn中的pca的用法一样
+        """和sklearn中的pca的用法一样
         """
         self.n_components = n_components
         self.kernel = None
@@ -66,4 +70,4 @@ class VecsWhitening(object):
         self.bias = df.bias[0]
         self.origin_dim = df.origin_dim
         if self.n_components != df.n_components[0]:
-            raise Exception("Model Load Error, n_components dose not match")
+            raise Exception("Vecs Whitening Model Load Error, n_components dose not match")
