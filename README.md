@@ -22,10 +22,11 @@ A common faiss searcher based on pandas dataFrame
   - 5.measurement，度量方法，最常用的是cos余弦相似度，l2欧氏距离，还支持1范数、无穷范数、p范数等等
   - 6.is_nrom，是否需要对象量归一化，根据自己的度量方法或者工程场景来使用，cos默认为True。
 
-## 示例
+## FaissSearcher使用分为两种情况：
+### 1.需要将物料encode成向量：
 ```python
-encoder = BertEncoder(config_path, checkpoint_path, dict_path)  # 预训练权重自己得准备好，也可以是自己写的encoder，必须有encode方法，建议直接继承base_encoder类来写
-items = pd.read_csv(item_path)  # 候选文本集合csv文件，需要自备，需要df第一列是候选文本，其他列会在检索时自动带出。
+encoder = BertEncoder(config_path, checkpoint_path, dict_path)  # 预训练权重自己得准备好，也可以是自己写的encoder，必须有encode或者predict方法，基本只要通过keras/tf2实现的模型都可以，作用是将物料encode成向量。
+items = pd.read_csv(item_path)  # 候选物料集合csv文件，需要自备，需要df第一列是候选物料，其他列会在检索时自动带出。
 index_param = 'HNSW64'
 measurement = 'cos'
 
@@ -33,9 +34,30 @@ measurement = 'cos'
 searcher = FaissSearcher(encoder, items, index_param, measurement)
 # 构建index
 searcher.train()
-# 保存index，方便下次调用
-searcher.save_index('demo.index')
-# 搜索，以文本为例
+# 开始搜索，以文本为例
 target = ['你好我叫小鲨鱼', '你好我是小兔子', '很高兴认识你']
 df_res = searcher.search(target， topK=10)  # df_res即为结果
+```
+
+### 2.只提供embedding的情况：
+```python
+index_param = 'HNSW64'
+measurement = 'cos'
+searcher = FaissSearcher(
+  items=you_vecs_array(...),  # 物料向量，事先embedding好
+  item_list=you_items_array(...),  # 物料向量，所对应的物料候选(顺序需和向量一致)
+  index_param=index_param, 
+  measurement=measurement
+  )
+
+searcher.train()
+# 开始检索
+target = you_target_array(...)
+df_res = searcher.search(target， topK=10)  # df_res即为结果
+```
+
+### 3.保存index，方便下次加载
+```python
+searcher.save_index('demo.index')
+searcher.load_index('demo.index')
 ```
