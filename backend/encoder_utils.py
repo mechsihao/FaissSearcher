@@ -18,6 +18,9 @@ import functools
 from concurrent import futures
 
 
+common_conf_path = "/home/notebook/data/group/sihao_work/browse_recall/model_recall/data/pretrain_model/roberta/base/bert_config.json"
+common_ckpt_path = "/home/notebook/data/group/sihao_work/browse_recall/model_recall/data/pretrain_model/roberta/base/bert_model.ckpt"
+common_dict_path = "/home/notebook/data/group/sihao_work/browse_recall/model_recall/data/pretrain_model/roberta/base/vocab.txt"
 executor = futures.ThreadPoolExecutor(1)
 
 
@@ -111,31 +114,3 @@ def load_config(config_path="./bert_service_conf.json"):
     else:
         config = {}
     return config
-
-
-def print_args_info(args_dict: Dict[str, str]):
-    keys = list(args_dict.keys())
-    values = list(args_dict.values())
-    print("Args Comments:")
-
-    def get_type_value(v: str):
-        if "[" in v and "]" in v:
-            return v[v.index("["): v.index("]")].strip("[").strip("]").strip(), v[v.index("]") + 1:].strip()
-        else:
-            return str(type(v)).split("'")[1].strip(), v
-
-    type_max_len = max([len(get_type_value(i)[0]) for i in values]) + 2
-    get_type_str = lambda x: str(" " * ((type_max_len - len(x) + 1) // 2) + x + " " * ((type_max_len - len(x)) // 2))[:type_max_len]
-
-    max_key_len = max([len(i) for i in keys])
-    max_value_len = max([len(get_type_value(str(i))[1]) for i in values])
-
-    print("┏" + "━" * (max_key_len + 2) + "┳" + "━" * type_max_len + "┳" + "━" * (max_value_len + 2) + "┓")
-    print("┃" + " " * (max_key_len - 4) + "ARG   ┃" + get_type_str("TYPE") + "┃   COMMENTS" + " " * (max_value_len - 9) + "┃")
-    print("┣" + "━" * (max_key_len + 2) + "╋" + "━" * type_max_len + "╋" + "━" * (max_value_len + 2) + "┫")
-    for key, value in zip(keys, values):
-        t, value = get_type_value(value)
-        print("┃ " + " " * (max_key_len - len(key)) + f"{key} ┃" + get_type_str(t) + f"┃ {str(value)}" + " " * (
-                max_value_len - len(str(value))
-        ) + " ┃")
-    print("┗" + "━" * (max_key_len + 2) + "┻" + "━" * type_max_len + "┻" + "━" * (max_value_len + 2) + "┛")

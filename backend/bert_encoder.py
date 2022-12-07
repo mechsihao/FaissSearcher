@@ -23,11 +23,12 @@ import numpy as np
 from tensorflow import keras
 from tensorflow.keras import layers, models
 from bert4keras.models import build_transformer_model
-from base_encoder import BaseEncoder
-from encoder_utils import timeout, EncodeDataGenerator, InteractDataGenerator, merge, print_args_info
-from vecs_whitening import VecsWhitening
+from backend.base_encoder import BaseEncoder
+from backend.encoder_utils import timeout, EncodeDataGenerator, InteractDataGenerator, merge
+from backend.vecs_whitening import VecsWhitening
 from bert_serving.client import BertClient
 from concurrent import futures
+from utils.print_util import print_args_info
 
 executor = futures.ThreadPoolExecutor(1)
 
@@ -228,7 +229,7 @@ class BertEncoder(BaseEncoder):
 def load_encoder(model_name, config_path, checkpoint_path, **kwargs):
     if "pool_pos" in kwargs:
         pool_pos = kwargs["pool_pos"]
-        if isinstance(pool_pos, str) and pool_pos == 'avg':
+        if isinstance(pool_pos, str) and pool_pos != 'avg':
             raise ValueError(f"pool_pos not support: {pool_pos}")
         if isinstance(pool_pos, int) and (pool_pos >= 512 or pool_pos < 0):
             raise ValueError(f"pool_pos scalar must in [0, 512), get {pool_pos}")
