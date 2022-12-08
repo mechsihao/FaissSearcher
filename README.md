@@ -46,10 +46,10 @@ index_param = 'HNSW64'
 measurement = 'cos'
 searcher = FaissSearcher(
   items=you_vecs_array(...),  # 物料向量，事先embedding好
-  item_list=you_items_array(...),  # 物料向量，所对应的物料候选(顺序需和向量一致)
+  item_list=you_items_array(...),  # 物料向量所对应的物料候选list(顺序需和向量一致)。此项可不输入，如果不输入则检索时输出为embedding所对应的index
   index_param=index_param, 
   measurement=measurement
-  )
+)
 
 searcher.train()
 # 开始检索
