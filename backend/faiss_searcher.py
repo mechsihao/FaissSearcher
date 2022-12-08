@@ -12,9 +12,9 @@ import faiss
 
 from pandas import DataFrame
 from numpy import array, ndarray
-from backend.base_encoder import BaseEncoder
-from backend.bert_encoder import BertEncoder
-from backend.encoder_utils import common_conf_path as dict_path
+from .base_encoder import BaseEncoder
+from .bert_encoder import BertEncoder
+from .encoder_utils import common_conf_path as dict_path
 import pickle
 
 

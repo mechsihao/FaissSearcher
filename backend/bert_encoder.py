@@ -23,9 +23,9 @@ import numpy as np
 from tensorflow import keras
 from tensorflow.keras import layers, models
 from bert4keras.models import build_transformer_model
-from backend.base_encoder import BaseEncoder
-from backend.encoder_utils import timeout, EncodeDataGenerator, InteractDataGenerator, merge
-from backend.vecs_whitening import VecsWhitening
+from .base_encoder import BaseEncoder
+from .encoder_utils import timeout, EncodeDataGenerator, InteractDataGenerator, merge
+from .vecs_whitening import VecsWhitening
 from bert_serving.client import BertClient
 from concurrent import futures
 from utils.print_util import print_args_info

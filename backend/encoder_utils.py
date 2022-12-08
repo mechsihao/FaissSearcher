@@ -1,4 +1,3 @@
-import json
 import os
 
 os.environ['TF_KERAS'] = '1'
@@ -103,14 +102,3 @@ class InteractDataGenerator(DataGenerator):
         while True:
             for d in self.__iter__():
                 yield d
-
-
-def load_config(config_path="./bert_service_conf.json"):
-    """读取json格式配置
-    """
-    if os.path.exists(config_path):
-        with open(config_path, 'r') as f:
-            config = json.load(f)
-    else:
-        config = {}
-    return config

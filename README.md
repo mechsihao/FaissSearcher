@@ -2,14 +2,15 @@
 A common faiss searcher based on pandas dataFrame
 
 [![](https://img.shields.io/badge/知乎-MECH-blue)](https://www.zhihu.com/people/ha-ha-ha-67-42-64)
-![](https://img.shields.io/static/v1?label=tensorflow&message=2.3.2&color=orange)
-![](https://img.shields.io/static/v1?label=faiss-cpu&message=1.7.x&color=maroon)
-![](https://img.shields.io/static/v1?label=pandas&message=1.3.5&color=yellow)
-![](https://img.shields.io/static/v1?label=bert4keras&message=0.10.8&color=silver)
-![](https://img.shields.io/static/v1?label=keras&message=2.4.3&color=silver)
+[![](https://img.shields.io/static/v1?label=tensorflow&message=2.3.2&color=orange)](https://github.com/tensorflow/tensorflow)
+[![](https://img.shields.io/static/v1?label=faiss-cpu&message=1.7.x&color=maroon)](https://github.com/facebookresearch/faiss)
+[![](https://img.shields.io/static/v1?label=pandas&message=1.3.5&color=yellow)](https://github.com/pandas-dev/pandas)
+[![](https://img.shields.io/static/v1?label=bert4keras&message=0.10.8&color=silver)](https://github.com/bojone/bert4keras)
+[![](https://img.shields.io/static/v1?label=keras&message=2.4.3&color=cornflowerblue)](https://github.com/keras-team/keras)
 
 
 基于pandas DataFrame 检索的Faiss封装，pandas尽量使用1.3.5，如不能保证精确版本，也要保证在1.0以上。
+- 新特性：可以纯embedding检索，并且支持附加一个候选检索list，检索时会将其一并带出。
 ## 特点
 简单易上手，只要是能encode成向量的都可以，不局限于文本、图像、搜广推等场景。
   - 安装：`pip install faiss_searcher`
@@ -23,7 +24,7 @@ A common faiss searcher based on pandas dataFrame
   - 6.is_nrom，是否需要对象量归一化，根据自己的度量方法或者工程场景来使用，cos默认为True。
 
 ## FaissSearcher使用分为两种情况：
-### 1.需要将物料encode成向量：
+### 1.需要将物料encode成向量的情况：
 ```python
 encoder = BertEncoder(config_path, checkpoint_path, dict_path)  # 预训练权重自己得准备好，也可以是自己写的encoder，必须有encode或者predict方法，基本只要通过keras/tf2实现的模型都可以，作用是将物料encode成向量。
 items = pd.read_csv(item_path)  # 候选物料集合csv文件，需要自备，需要df第一列是候选物料，其他列会在检索时自动带出。
@@ -56,7 +57,7 @@ target = you_target_array(...)
 df_res = searcher.search(target， topK=10)  # df_res即为结果
 ```
 
-### 3.保存index，方便下次加载
+### 支持保存index，方便下次加载
 ```python
 searcher.save_index('demo.index')
 searcher.load_index('demo.index')
