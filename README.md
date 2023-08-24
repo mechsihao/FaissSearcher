@@ -36,7 +36,7 @@ searcher = FaissSearcher(encoder, items, index_param, measurement)
 # 构建index
 searcher.train()
 # 开始搜索，以文本为例
-target = ['你好我叫小鲨鱼', '你好我是小兔子', '很高兴认识你', '有一种踏实，是你心中有我名字~']
+target = ['你好我叫小鲨鱼', '很高兴认识你', '有一种踏实，是你心中有我名字~']
 df_res = searcher.search(target， topK=10)  # df_res即为结果
 ```
 
